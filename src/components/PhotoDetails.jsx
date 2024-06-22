@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { photos } from '../data/photos';
+import PropTypes from 'prop-types';
 
 const PhotoDetails = () => {
   const { id } = useParams();
@@ -33,6 +34,19 @@ const PhotoDetails = () => {
       <Link to={`/photo/${photo.id}`}>Back to Photo</Link>
     </div>
   );
+};
+
+PhotoDetails.propTypes = {
+  photos: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      link: PropTypes.string.isRequired,
+      rating: PropTypes.number.isRequired,
+      author: PropTypes.string.isRequired,
+      date: PropTypes.string.isRequired,
+      details: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };
 
 export default PhotoDetails;

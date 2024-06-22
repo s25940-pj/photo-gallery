@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import ReactStars from 'react-rating-stars-component';
 import { photos } from '../data/photos';
+import PropTypes from 'prop-types';
 
 const PhotoGallery = () => {
   const { id } = useParams();
@@ -70,6 +71,19 @@ const PhotoGallery = () => {
       )}
     </div>
   );
+};
+
+PhotoGallery.propTypes = {
+  photos: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      link: PropTypes.string.isRequired,
+      rating: PropTypes.number.isRequired,
+      author: PropTypes.string.isRequired,
+      date: PropTypes.string.isRequired,
+      details: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };
 
 export default PhotoGallery;
