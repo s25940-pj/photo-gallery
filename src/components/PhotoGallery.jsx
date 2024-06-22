@@ -11,7 +11,7 @@ const PhotoGallery = () => {
   const [rating, setRating] = useState(0);
 
   useEffect(() => {
-    const index = photos.findIndex((photo) => photo.id === parseInt(id));
+    const index = photos.findIndex(photo => photo.id === parseInt(id));
     if (index !== -1) {
       setPhotoIndex(index);
       setPhoto(photos[index]);
@@ -19,7 +19,7 @@ const PhotoGallery = () => {
     }
   }, [id]);
 
-  const handleRatingChange = (newRating) => {
+  const handleRatingChange = newRating => {
     if (photoIndex !== null) {
       const updatedPhotos = [...photos];
       updatedPhotos[photoIndex].rating = newRating;
@@ -32,7 +32,11 @@ const PhotoGallery = () => {
       <h1>Photo Gallery</h1>
       {photo ? (
         <div>
-          <img src={photo.link} alt={`${photo.author}`} style={{ width: '100%', maxHeight: '500px' }} />
+          <img
+            src={photo.link}
+            alt={`${photo.author}`}
+            style={{ width: '100%', maxHeight: '500px' }}
+          />
           <div>
             <ReactStars
               count={5}
@@ -46,10 +50,18 @@ const PhotoGallery = () => {
           </div>
           <div>
             {photoIndex > 0 && (
-              <button onClick={() => navigate(`/photo/${photos[photoIndex - 1].id}`)}>{'<'}</button>
+              <button
+                onClick={() => navigate(`/photo/${photos[photoIndex - 1].id}`)}
+              >
+                {'<'}
+              </button>
             )}
             {photoIndex < photos.length - 1 && (
-              <button onClick={() => navigate(`/photo/${photos[photoIndex + 1].id}`)}>{'>'}</button>
+              <button
+                onClick={() => navigate(`/photo/${photos[photoIndex + 1].id}`)}
+              >
+                {'>'}
+              </button>
             )}
           </div>
         </div>

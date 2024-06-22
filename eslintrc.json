@@ -7,7 +7,8 @@
       "eslint:recommended",
       "plugin:react/recommended",
       "plugin:react-hooks/recommended",
-      "plugin:jsx-a11y/recommended"
+      "plugin:jsx-a11y/recommended",
+      "plugin:prettier/recommended"
     ],
     "parserOptions": {
       "ecmaFeatures": {
@@ -19,9 +20,11 @@
     "plugins": [
       "react",
       "react-hooks",
-      "jsx-a11y"
+      "jsx-a11y",
+      "prettier"
     ],
     "rules": {
+      "prettier/prettier": "error",
       "react/react-in-jsx-scope": "off",
       "react/prop-types": "off",
       "jsx-a11y/anchor-is-valid": [
