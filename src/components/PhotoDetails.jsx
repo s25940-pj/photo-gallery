@@ -1,11 +1,24 @@
+// @flow
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { photos } from '../data/photos';
-import PropTypes from 'prop-types';
 
-const PhotoDetails = () => {
+type Photo = {
+  id: number,
+  link: string,
+  rating: number,
+  author: string,
+  date: string,
+  details: string
+};
+
+type Props = {
+  photos: Array<Photo>
+};
+
+const PhotoDetails = ({ photos }: Props) => {
   const { id } = useParams();
-  const photo = photos.find(photo => photo.id === parseInt(id));
+  const photo = photos.find(photo => photo.id === parseInt(id, 10));
 
   if (!photo) {
     return <p>Photo not found</p>;
@@ -16,7 +29,7 @@ const PhotoDetails = () => {
       <h1>Photo Details</h1>
       <img
         src={photo.link}
-        alt={`${photo.author}`}
+        alt={`Photo by ${photo.author}`}
         style={{ width: '100%', maxHeight: '500px' }}
       />
       <p>
@@ -34,19 +47,6 @@ const PhotoDetails = () => {
       <Link to={`/photo/${photo.id}`}>Back to Photo</Link>
     </div>
   );
-};
-
-PhotoDetails.propTypes = {
-  photos: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      link: PropTypes.string.isRequired,
-      rating: PropTypes.number.isRequired,
-      author: PropTypes.string.isRequired,
-      date: PropTypes.string.isRequired,
-      details: PropTypes.string.isRequired,
-    })
-  ).isRequired,
 };
 
 export default PhotoDetails;

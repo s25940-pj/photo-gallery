@@ -1,29 +1,41 @@
+// @flow
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import ReactStars from 'react-rating-stars-component';
 import { photos } from '../data/photos';
-import PropTypes from 'prop-types';
 
-const PhotoGallery = () => {
+type Photo = {
+  id: number,
+  link: string,
+  rating: number,
+  author: string,
+  date: string,
+  details: string
+};
+
+type Props = {
+  initialPhotos: Array<Photo>
+};
+
+const PhotoGallery = ({ initialPhotos }: Props) => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [photoIndex, setPhotoIndex] = useState(null);
-  const [photo, setPhoto] = useState(null);
-  const [rating, setRating] = useState(0);
+  const [photoIndex, setPhotoIndex] = useState<?number>(null);
+  const [photo, setPhoto] = useState<?Photo>(null);
+  const [rating, setRating] = useState<number>(0);
 
   useEffect(() => {
-    const index = photos.findIndex(photo => photo.id === parseInt(id));
+    const index = initialPhotos.findIndex(photo => photo.id === parseInt(id, 10));
     if (index !== -1) {
       setPhotoIndex(index);
-      setPhoto(photos[index]);
-      setRating(photos[index].rating);
+      setPhoto(initialPhotos[index]);
+      setRating(initialPhotos[index].rating);
     }
-  }, [id]);
+  }, [id, initialPhotos]);
 
-  const handleRatingChange = newRating => {
+  const handleRatingChange = (newRating: number) => {
     if (photoIndex !== null) {
-      const updatedPhotos = [...photos];
-      updatedPhotos[photoIndex].rating = newRating;
+      initialPhotos[photoIndex].rating = newRating;
       setRating(newRating);
     }
   };
@@ -35,7 +47,7 @@ const PhotoGallery = () => {
         <div>
           <img
             src={photo.link}
-            alt={`${photo.author}`}
+            alt={`Photo by ${photo.author}`}
             style={{ width: '100%', maxHeight: '500px' }}
           />
           <div>
@@ -52,14 +64,16 @@ const PhotoGallery = () => {
           <div>
             {photoIndex > 0 && (
               <button
-                onClick={() => navigate(`/photo/${photos[photoIndex - 1].id}`)}
+                type="button"
+                onClick={() => navigate(`/photo/${initialPhotos[photoIndex - 1].id}`)}
               >
                 {'<'}
               </button>
             )}
-            {photoIndex < photos.length - 1 && (
+            {photoIndex < initialPhotos.length - 1 && (
               <button
-                onClick={() => navigate(`/photo/${photos[photoIndex + 1].id}`)}
+                type="button"
+                onClick={() => navigate(`/photo/${initialPhotos[photoIndex + 1].id}`)}
               >
                 {'>'}
               </button>
@@ -71,19 +85,6 @@ const PhotoGallery = () => {
       )}
     </div>
   );
-};
-
-PhotoGallery.propTypes = {
-  photos: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      link: PropTypes.string.isRequired,
-      rating: PropTypes.number.isRequired,
-      author: PropTypes.string.isRequired,
-      date: PropTypes.string.isRequired,
-      details: PropTypes.string.isRequired,
-    })
-  ).isRequired,
 };
 
 export default PhotoGallery;
