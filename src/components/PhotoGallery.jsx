@@ -32,7 +32,7 @@ const PhotoGallery = () => {
       <h1>Photo Gallery</h1>
       {photo ? (
         <div>
-          <img src={photo.link} alt={`Photo by ${photo.author}`} style={{ width: '100%', maxHeight: '500px' }} />
+          <img src={photo.link} alt={`${photo.author}`} style={{ width: '100%', maxHeight: '500px' }} />
           <div>
             <ReactStars
               count={5}

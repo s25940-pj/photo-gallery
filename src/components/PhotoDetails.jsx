@@ -13,7 +13,7 @@ const PhotoDetails = () => {
   return (
     <div>
       <h1>Photo Details</h1>
-      <img src={photo.link} alt={`Photo by ${photo.author}`} style={{ width: '100%', maxHeight: '500px' }} />
+      <img src={photo.link} alt={`${photo.author}`} style={{ width: '100%', maxHeight: '500px' }} />
       <p><strong>Author:</strong> {photo.author}</p>
       <p><strong>Date:</strong> {photo.date}</p>
       <p><strong>Details:</strong> {photo.details}</p>
